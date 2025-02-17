@@ -1,4 +1,4 @@
 flask
 requests
+ibm-watson-machine-learning
 gunicorn
-
