@@ -1,16 +1,23 @@
+import logging
 from flask import Flask, request, jsonify
+from flask_ngrok import run_with_ngrok
+from pyngrok import ngrok
 import requests
 
+logging.basicConfig(level=logging.INFO)
 app = Flask(__name__)
+run_with_ngrok(app)  # Automatically runs Ngrok when Flask starts
 
-# IBM Cloud API Key (Replace with your actual API key)
+
+NGROK_AUTH_TOKEN = "2t7I3HEwJQ33BHNs82BS2QkOPCG_4CNYYC2DD5ww6ccPTefPw"
+ngrok.set_auth_token(NGROK_AUTH_TOKEN)
+
+
 IBM_CLOUD_API_KEY = "6X4Ku6ke_nnHpZldiy6nqEkyTVlS42c_-rH_HSJ5GgSz"
-
-# IBM Watson Machine Learning (WML) Deployment Details
 DEPLOYMENT_ID = "7fc085b2-6164-42c7-a36a-c8060be63ddb"
-DEPLOYMENT_ENDPOINT = f"https://us-south.ml.cloud.ibm.com/ml/v4/deployments/{deployment_id}/predictions?version=2021-05-01"
+DEPLOYMENT_ENDPOINT = f"https://us-south.ml.cloud.ibm.com/ml/v4/deployments/{DEPLOYMENT_ID}/predictions?version=2021-05-01"
 
-# Function to get IBM IAM Token
+
 def get_iam_token():
     auth_url = "https://iam.cloud.ibm.com/identity/token"
     auth_response = requests.post(
@@ -18,32 +25,38 @@ def get_iam_token():
         data={"grant_type": "urn:ibm:params:oauth:grant-type:apikey", "apikey": IBM_CLOUD_API_KEY},
         headers={"Content-Type": "application/x-www-form-urlencoded"},
     )
-    return auth_response.json().get("access_token")
+    return auth_response.json()["access_token"]
+
+
+public_url = ngrok.connect(5000).public_url
+print(f" Flask is running at: {public_url}")
+
 
 @app.route('/')
 def home():
-    return " IBM Cloud Flask API is running! Use `/predict` for predictions."
+    return f"Welcome to the Customer Insights API!"
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Get JSON input from request
+        # Get JSON Data
         data = request.get_json()
         if not data:
             return jsonify({"error": "Invalid request. No data received."}), 400
 
-        # Get IAM Token
+        # Get IBM Watson ML IAM Token
         iam_token = get_iam_token()
         headers = {"Authorization": f"Bearer {iam_token}", "Content-Type": "application/json"}
 
         # Send request to IBM Watson ML
         response = requests.post(DEPLOYMENT_ENDPOINT, json=data, headers=headers)
 
-        # Return the prediction result
+        # Return IBM Watson Response
         return jsonify(response.json())
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8080)
+    app.run()
