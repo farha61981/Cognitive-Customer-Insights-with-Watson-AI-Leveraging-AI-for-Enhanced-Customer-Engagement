@@ -1,4 +1,3 @@
-const FLASK_API_URL = "https://your-api-url.com/predict";  // Replace with your Flask API URL
 
 // Predict Customer Churn
 async function predictChurn() {
