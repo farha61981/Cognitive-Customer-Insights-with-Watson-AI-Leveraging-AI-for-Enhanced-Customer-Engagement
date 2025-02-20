@@ -3,27 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Insights AI</title>
+    <title>Cognitive Customer Insights</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+
+    <header>
+        <h1>Customer Insights Dashboard</h1>
+    </header>
+
     <div class="container">
-        <h1>Customer Insights AI</h1>
-        <p>Enter customer details to analyze insights:</p>
+        <section class="chart-section">
+            <h2>Customer Segmentation</h2>
+            <canvas id="customerChart"></canvas>
+        </section>
 
-        <label for="age">Age:</label>
-        <input type="number" id="age" placeholder="Enter Age">
-
-        <label for="income">Income:</label>
-        <input type="number" id="income" placeholder="Enter Income">
-
-        <label for="satisfaction">Satisfaction (0-100):</label>
-        <input type="number" id="satisfaction" placeholder="Enter Satisfaction Score">
-
-        <button id="analyzeBtn">Analyze</button>
-
-        <h2>Prediction:</h2>
-        <p id="prediction">No analysis yet.</p>
+        <section class="chat-section">
+            <h2>AI Chatbot</h2>
+            <div class="chat-box">
+                <div id="chat-log"></div>
+                <input type="text" id="user-input" placeholder="Ask me anything..." />
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </section>
     </div>
 
     <script src="script.js"></script>
