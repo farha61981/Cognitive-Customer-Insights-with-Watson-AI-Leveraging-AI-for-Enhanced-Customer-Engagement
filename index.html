@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cognitive Customer Insights</title>
+    <title>Customer Insights with Watson AI</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
     <header>
-        <h1>Customer Insights Dashboard</h1>
+        <h1>Customer Insights with AI</h1>
     </header>
 
     <div class="container">
@@ -19,14 +19,25 @@
             <canvas id="customerChart"></canvas>
         </section>
 
-        <section class="chat-section">
-            <h2>AI Chatbot</h2>
-            <div class="chat-box">
-                <div id="chat-log"></div>
-                <input type="text" id="user-input" placeholder="Ask me anything..." />
-                <button onclick="sendMessage()">Send</button>
-            </div>
+        <section class="input-section">
+            <h2>Predict Customer Churn</h2>
+            <label>Tenure (Months):</label>
+            <input type="number" id="tenure" required>
+
+            <label>Monthly Charges ($):</label>
+            <input type="number" id="monthlyCharges" required>
+
+            <label>Contract Type:</label>
+            <select id="contract">
+                <option value="0">Month-to-Month</option>
+                <option value="1">One Year</option>
+                <option value="2">Two Years</option>
+            </select>
+
+            <button onclick="predictChurn()">Predict</button>
         </section>
+
+        <h2 id="result"></h2>
     </div>
 
     <script src="script.js"></script>
