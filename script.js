@@ -8,9 +8,11 @@ async function analyzeCustomer() {
     let satisfaction = document.getElementById("satisfaction").value;
 
     if (!age || !income || !satisfaction) {
-        alert("Please fill all fields.");
+        alert("⚠️ Please fill all fields.");
         return;
     }
+
+    document.getElementById("loading").style.display = "block"; // Show Loading
 
     let payload = {
         "input_data": [{
@@ -25,7 +27,8 @@ async function analyzeCustomer() {
         body: JSON.stringify(payload)
     });
 
+    document.getElementById("loading").style.display = "none"; // Hide Loading
+
     let data = await response.json();
-    document.getElementById("predictionResult").innerText = 
-        `Predicted Segment: ${data.predictions[0].values[0][0]}`;
+    document.getElementById("predictionResult").innerText = `✅ Predicted Segment: ${data.predictions[0].values[0][0]}`;
 }
