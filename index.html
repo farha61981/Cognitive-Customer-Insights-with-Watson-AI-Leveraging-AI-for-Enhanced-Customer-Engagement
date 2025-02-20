@@ -3,36 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔍 AI-Powered Customer Insights</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Customer Insights AI</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>🔍 AI-Powered Customer Insights</h1>
-        <p>📊 Enter details below to analyze customer segmentation:</p>
+        <h1>Customer Insights AI</h1>
+        <p>Enter customer details to analyze insights:</p>
 
-        <div class="input-group">
-            <label>👤 Age:</label>
-            <input type="number" id="age" placeholder="Enter Age" min="18" max="100">
-        </div>
+        <label for="age">Age:</label>
+        <input type="number" id="age" placeholder="Enter Age">
 
-        <div class="input-group">
-            <label>💰 Income:</label>
-            <input type="number" id="income" placeholder="Enter Income" min="1000" max="100000">
-        </div>
+        <label for="income">Income:</label>
+        <input type="number" id="income" placeholder="Enter Income">
 
-        <div class="input-group">
-            <label>😀 Satisfaction Score:</label>
-            <input type="range" id="satisfaction" min="0" max="100" value="50">
-            <span id="satisfactionValue">50</span>
-        </div>
+        <label for="satisfaction">Satisfaction (0-100):</label>
+        <input type="number" id="satisfaction" placeholder="Enter Satisfaction Score">
 
-        <button onclick="analyzeCustomer()">🚀 Analyze</button>
+        <button id="analyzeBtn">Analyze</button>
 
-        <div id="loading" class="hidden">⏳ Analyzing...</div>
-
-        <h2>🔮 Prediction:</h2>
-        <p id="predictionResult">No analysis yet.</p>
+        <h2>Prediction:</h2>
+        <p id="prediction">No analysis yet.</p>
     </div>
 
     <script src="script.js"></script>
